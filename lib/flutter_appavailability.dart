@@ -21,7 +21,7 @@ class AppAvailability {
   ///   "versionCode": "",
   ///   "version_name": ""
   /// }
-  Future<bool> checkAppInstalledOniOS(String uri) async {
+  static Future<bool> checkAppInstalledOniOS(String uri) async {
     Map<String, dynamic> args = <String, dynamic>{};
     args.putIfAbsent('uri', () => uri);
     bool appAvailable = await _channel.invokeMethod("checkAvailability", args);
