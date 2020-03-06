@@ -37,7 +37,7 @@ class AppAvailability {
     else if (Platform.isIOS) {
       bool appAvailable = await _channel.invokeMethod("checkAvailability", args);
       if (!appAvailable) {
-        throw PlatformException(code: "", message: "App not found $uri");
+        return false;
       }
       return {
         "app_name": "",
