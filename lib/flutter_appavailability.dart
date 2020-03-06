@@ -21,6 +21,13 @@ class AppAvailability {
   ///   "versionCode": "",
   ///   "version_name": ""
   /// }
+  Future<bool> checkAppInstalledOniOS(String uri) async {
+    Map<String, dynamic> args = <String, dynamic>{};
+    args.putIfAbsent('uri', () => uri);
+    bool appAvailable = await _channel.invokeMethod("checkAvailability", args);
+  return appAvailable;
+  }
+
   static Future<Map<String, String>> checkAvailability(String uri) async {
     Map<String, dynamic> args = <String, dynamic>{};
     args.putIfAbsent('uri', () => uri);
@@ -37,7 +44,7 @@ class AppAvailability {
     else if (Platform.isIOS) {
       bool appAvailable = await _channel.invokeMethod("checkAvailability", args);
       if (!appAvailable) {
-        return false;
+        throw PlatformException(code: "", message: "App not found $uri");
       }
       return {
         "app_name": "",
